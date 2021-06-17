@@ -41,16 +41,16 @@
         },
         "info": {
           "0409": {
-            "Comments": "",
-            "CompanyName": "",
-            "FileDescription": "",
+            "Comments": "Burp Suite Pro Loader",
+            "CompanyName": "@github.com",
+            "FileDescription": "Burp Suite Pro Loader",
             "FileVersion": "",
-            "InternalName": "",
-            "LegalCopyright": "",
+            "InternalName": "Burp Suite Pro Loader",
+            "LegalCopyright": "@github.com",
             "LegalTrademarks": "",
             "OriginalFilename": "",
             "PrivateBuild": "",
-            "ProductName": "",
+            "ProductName": "Burp Suite Pro Loader",
             "ProductVersion": "",
             "SpecialBuild": ""
           }

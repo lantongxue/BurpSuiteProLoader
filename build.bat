@@ -1,6 +1,8 @@
 @echo off
 echo Start Building...
-go build -ldflags="-s -w -H windowsgui"
+go-winres make
+
+go build -ldflags="-H windowsgui"
 
 echo Success
 
