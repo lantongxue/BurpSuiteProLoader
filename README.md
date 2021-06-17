@@ -1,5 +1,5 @@
-# BurpSuitePro_src
-BurpSuitePro Loader src
+# BurpSuiteProLoader
+BurpSuiteProLoader Source
 
 # Dependents
 ### Windows
