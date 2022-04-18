@@ -22,7 +22,10 @@ jobs:
       run: go install github.com/tc-hib/go-winres@latest
 
     - name: Build
-      run: go-winres make && go build -ldflags="-H windowsgui"
+      run: |
+        go-winres make
+        go build -ldflags="-H windowsgui"
+        dir
     
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.0.0
