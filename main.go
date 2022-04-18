@@ -24,7 +24,7 @@ func main() {
 		os.WriteFile("error.log", []byte("burpsuite_pro.jar not found \n"), 0666)
 		return
 	}
-	cmd := exec.Command("java", "-javaagent:BurpLoaderKeygen.jar", "-noverify", "-jar", burpsuite_pro_jar)
+	cmd := exec.Command("java", "-javaagent:BurpLoaderKeygen.jar", "-noverify", "-jar", burpsuite_pro_jar, "--illegal-access=permit")
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	cmd.Start()
 }
