@@ -23,7 +23,8 @@ jobs:
 
     - name: Build
       run: |
-        build.bat
+        go-winres make
+        go build -ldflags="-H windowsgui"
         dir
 
     - name: Release
