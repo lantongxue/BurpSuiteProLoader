@@ -23,16 +23,11 @@ jobs:
 
     - name: Build
       run: |
-        go-winres make
-        go build -ldflags="-H windowsgui"
+        build.bat
         dir
-        echo ${{ secrets.token }}
-        echo ${{ github.token }}
 
     - name: Release
       uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
       with:
-        token: ${{ secrets.token }}
         name: BurpSuitePro-Windows
         files: BurpSuitePro.exe
