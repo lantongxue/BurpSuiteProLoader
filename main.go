@@ -1,30 +1,44 @@
 package main
 
 import (
-	"io/fs"
 	"os"
 	"os/exec"
-	"path/filepath"
-	"strings"
+	"path"
 	"syscall"
 )
 
+func PathExists(path string) bool {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true
+	}
+	if os.IsNotExist(err) {
+		return false
+	}
+	return false
+}
+
 func main() {
 
-	var burpsuite_pro_jar string = ""
-	filepath.Walk("./", func(path string, info fs.FileInfo, err error) error {
-		name := strings.ToLower(info.Name())
-		if strings.HasPrefix(name, "burpsuite_pro") {
-			burpsuite_pro_jar = info.Name()
-			return nil
-		}
-		return nil
-	})
-	if burpsuite_pro_jar == "" {
+	pwd, err := os.Getwd()
+	if err != nil {
+		os.WriteFile("error.log", []byte(err.Error()), 0666)
+		return
+	}
+
+	burpsuite_pro_jar := path.Join(pwd, "burpsuite_pro.jar")
+	if !PathExists(burpsuite_pro_jar) {
 		os.WriteFile("error.log", []byte("burpsuite_pro.jar not found \n"), 0666)
 		return
 	}
-	cmd := exec.Command("java", "-javaagent:BurpLoaderKeygen.jar", "-noverify", "-jar", burpsuite_pro_jar, "--illegal-access=permit")
+
+	default_jdk := path.Join(pwd, "jre", "bin", "java.exe")
+	jdk := "java"
+	if PathExists(default_jdk) {
+		jdk = default_jdk
+	}
+
+	cmd := exec.Command(jdk, "--illegal-access=permit", "-javaagent:BurpLoaderKeygen.jar", "-noverify", "-jar", burpsuite_pro_jar)
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	cmd.Start()
 }
