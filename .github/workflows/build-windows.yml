@@ -20,10 +20,10 @@ jobs:
     - name: Init Env
       run: go install github.com/tc-hib/go-winres@latest
 
-    - name: Build
+    - name: Build for Windows
       run: |
         go-winres make
-        go build -ldflags="-H windowsgui"
+        go build -ldflags="-H windowsgui -s -w"
         dir
 
     - name: Release
