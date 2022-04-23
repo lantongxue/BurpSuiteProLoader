@@ -2,9 +2,7 @@ package main
 
 import (
 	"os"
-	"os/exec"
 	"path"
-	"syscall"
 )
 
 func PathExists(path string) bool {
@@ -38,7 +36,5 @@ func main() {
 		jdk = default_jdk
 	}
 
-	cmd := exec.Command(jdk, "--illegal-access=permit", "-javaagent:BurpLoaderKeygen.jar", "-noverify", "-jar", burpsuite_pro_jar)
-	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
-	cmd.Start()
+	run(jdk, burpsuite_pro_jar)
 }

@@ -10,9 +10,12 @@ go install github.com/tc-hib/go-winres@latest
 
 # Build
 ### Windows
-```shell
-go-winres make && go build -ldflags="-H windowsgui"
+```batch
+go-winres make
+go build -ldflags="-H windowsgui -s -w" -buildvcs=false
 ```
+
+`-buildvcs=false` is an optional
 
 ### Linux & MacOS
 ```shell
