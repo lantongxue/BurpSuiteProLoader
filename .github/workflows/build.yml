@@ -13,7 +13,7 @@ jobs:
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
         go-version: [1.18]
-    setps:
+    steps:
     - uses: actions/checkout@v3
 
     - name: Set up Golang ${{ matrix.go-version }}
