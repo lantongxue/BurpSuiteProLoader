@@ -1,0 +1,54 @@
+name: Go
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+
+  build:
+    runs-on: ${{ matrix.os }}
+    startegy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+        go-version: [1.18]
+    setps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Golang ${{ matrix.go-version }}
+      uses: actions/setup-go@v3
+      with:
+        go-version: ${{ matrix.go-version }}
+    
+    - name: Install winres for windows
+      if: matrix.os == 'windows-latest'
+      run: go install github.com/tc-hib/go-winres@latest
+    
+    - name: Build for windows
+      if: matrix.os == 'windows-latest'
+      run: |
+        go-winres make
+        go build -ldflags="-H windowsgui -s -w" -o BurpSuiteProLoader-windows.exe
+        dir
+    
+    - name: Build for macos
+      if: matrix.os == 'macos-latest'
+      run: |
+        go build -ldflags="-s -w" -o BurpSuiteProLoader-darwin
+        ls -la
+    
+    - name: Build for ubuntu
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        go build -ldflags="-s -w" -o BurpSuiteProLoader-linux
+        ls -la
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          BurpSuiteProLoader-windows.exe
+          BurpSuiteProLoader-darwin
+          BurpSuiteProLoader-linux
